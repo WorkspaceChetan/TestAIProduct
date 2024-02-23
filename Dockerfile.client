@@ -1,0 +1,28 @@
+FROM node:14.17.6
+
+# RUN mkdir -p /app/client/node_modules && chown -R node:node /app/client
+
+
+WORKDIR /app/client
+
+COPY .package*.json ./
+
+
+RUN npm install
+
+COPY . .
+
+USER node
+
+EXPOSE 3080
+
+
+WORKDIR /app/client
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3080
+RUN  chown -R node /app/client
+USER node
+
+CMD [ "npm", "start"]
